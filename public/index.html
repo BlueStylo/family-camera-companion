@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Family Camera Companion</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="identity"><i data-lucide="house"></i><div><h1>우리집 카메라</h1><span>Family Camera Companion · 공개 데모</span></div></div>
+    <nav class="view-modes" aria-label="보기 모드">
+      <button id="mode-plan" aria-pressed="false"><i data-lucide="map"></i><span>평면도</span></button>
+      <button id="mode-model" aria-pressed="true"><i data-lucide="box"></i><span>3D</span></button>
+    </nav>
+    <div class="top-actions">
+      <a href="https://github.com/BlueStylo/family-camera-companion" class="icon-button" title="GitHub 저장소" aria-label="GitHub 저장소"><i data-lucide="code-xml"></i></a>
+      <button id="toggleInspector" class="icon-button" title="카메라 및 구역 정보" aria-label="카메라 및 구역 정보" aria-expanded="true"><i data-lucide="panel-right"></i></button>
+    </div>
+  </header>
+  <main class="studio">
+    <section class="scene-area" aria-label="집 모델">
+      <div class="scene-tools">
+        <div class="view-presets"><select id="viewPreset" aria-label="시점"><option value="overview">전체 보기</option><option value="garden">정원 쪽</option><option value="entry">현관 쪽</option><option value="road">도로 쪽</option></select></div>
+        <div class="layer-tools">
+          <label><input type="checkbox" id="layerRoof" checked /><span>지붕</span></label>
+          <label><input type="checkbox" id="layerTrees" checked /><span>식재</span></label>
+          <label><input type="checkbox" id="layerLabels" checked /><span>이름</span></label>
+          <label><input type="checkbox" id="layerCameras" /><span>가상 카메라</span></label>
+        </div>
+      </div>
+      <div id="stage">
+        <div id="threeView"></div><div id="planView" hidden></div><div id="sceneLabels"></div>
+        <div class="floating-tools">
+          <button id="zoomIn" class="icon-button" title="확대" aria-label="확대"><i data-lucide="plus"></i></button>
+          <button id="zoomOut" class="icon-button" title="축소" aria-label="축소"><i data-lucide="minus"></i></button>
+          <button id="resetView" class="icon-button" title="시점 초기화" aria-label="시점 초기화"><i data-lucide="scan"></i></button>
+        </div>
+        <div id="sceneError" role="alert" hidden></div><span class="model-note">치수 · 높이 · 경계 추정</span>
+      </div>
+      <footer class="scene-footer"><span id="viewStatus">정원 정면 기준 · 북향 미공개</span><span id="saveStatus" role="status">실내 배치 미확인</span></footer>
+    </section>
+    <aside class="inspector" id="inspector">
+      <section class="camera-demo" aria-label="가상 카메라 PTZ">
+        <div class="camera-heading"><h2>카메라</h2><span class="demo-badge">모의 영상</span></div>
+        <select id="demoCamera" aria-label="가상 카메라 선택"></select>
+        <div id="cameraPreview"><span id="cameraError" role="status">모델 불러오는 중</span></div>
+        <div class="ptz-layout">
+          <div class="ptz-pad">
+            <button data-ptz="up" title="위" aria-label="가상 카메라 위"><i data-lucide="chevron-up"></i></button>
+            <button data-ptz="left" title="왼쪽" aria-label="가상 카메라 왼쪽"><i data-lucide="chevron-left"></i></button>
+            <button id="ptzStop" title="정지" aria-label="가상 카메라 정지"><i data-lucide="square"></i></button>
+            <button data-ptz="right" title="오른쪽" aria-label="가상 카메라 오른쪽"><i data-lucide="chevron-right"></i></button>
+            <button data-ptz="down" title="아래" aria-label="가상 카메라 아래"><i data-lucide="chevron-down"></i></button>
+          </div>
+          <div class="ptz-zoom">
+            <button id="ptzZoomIn" title="줌 확대" aria-label="가상 카메라 줌 확대"><i data-lucide="plus"></i></button>
+            <button id="ptzZoomOut" title="줌 축소" aria-label="가상 카메라 줌 축소"><i data-lucide="minus"></i></button>
+            <button id="ptzReset" title="카메라 초기화" aria-label="가상 카메라 초기화"><i data-lucide="rotate-ccw"></i></button>
+          </div>
+        </div>
+        <output id="ptzStatus">연결된 실제 장치 없음</output>
+      </section>
+      <div id="zoneInspector">
+        <div class="inspector-title"><h2>구역</h2><span>19개</span></div><div class="zone-list" id="zoneList"></div>
+        <section class="selection">
+          <div class="selection-heading"><span id="evidenceTag"></span><h2 id="selectedName"></h2></div>
+          <p id="selectedNote"></p>
+          <dl class="dimensions"><div><dt>가로 · 추정</dt><dd id="dimensionWidth"></dd></div><div><dt>깊이 · 추정</dt><dd id="dimensionDepth"></dd></div><div><dt>높이 · 추정</dt><dd id="dimensionHeight"></dd></div></dl>
+        </section>
+        <section class="exports"><h3>내보내기 · 모델 별도 라이선스</h3><div><button id="exportSvg"><i data-lucide="file-image"></i>평면도 SVG</button><button id="exportGlb"><i data-lucide="box"></i>3D GLB</button></div><button id="exportJson" class="text-button"><i data-lucide="download"></i>배치 데이터</button></section>
+      </div>
+    </aside>
+  </main>
+  <script type="module" src="./app.bundle.js"></script>
+</body>
+</html>

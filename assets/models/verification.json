@@ -1,0 +1,20 @@
+{
+  "blendOpened": true,
+  "connectedRoof": true,
+  "planarRoofFaces": true,
+  "levelSmallGableRidge": true,
+  "roofWallMinClearanceM": 0.03495216369628906,
+  "alignedFacadeWindows": true,
+  "stackedSmallWindow": true,
+  "expandedPorchRoof": true,
+  "rightStairThreeTreads": true,
+  "rightRailOpeningClear": true,
+  "gateAtLawnEntrance": true,
+  "retainingStopsBeforeEntry": true,
+  "sameHeightGardenZones": true,
+  "lShapedFlowerBorder": true,
+  "tracedGroundAndRetainingWall": true,
+  "excludedNeighborPlot": true,
+  "editableMeshObjects": 1261,
+  "packedImages": 2
+}

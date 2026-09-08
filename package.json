@@ -1,0 +1,19 @@
+{
+  "name": "family-camera-companion",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Ad-free family camera companion prototype with a public 3D house study.",
+  "license": "MIT",
+  "engines": { "node": ">=22.22.0" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "npm run build && node scripts/serve.mjs",
+    "test": "node --test src/*.test.js tests/*.test.js server/*.test.js",
+    "check:privacy": "node scripts/check-public.mjs",
+    "check": "npm run build && npm test && npm run check:privacy",
+    "server": "node server/server.js",
+    "access": "node server/access.js"
+  },
+  "dependencies": { "esbuild": "0.28.2", "lucide": "1.42.0", "three": "0.185.1" }
+}

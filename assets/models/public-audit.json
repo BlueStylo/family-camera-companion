@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "review": "Procedural textures only; no source photographs or actual camera poses. Model geometry intentionally public.",
+  "sha256": {
+    "assets/models/villa.blend": "a310a237fadbb399f0d436a1dc23ea6acd778be79d5b3d17dee021567171d0d8",
+    "assets/models/verification.json": "1cd1d0c78f95162140ece14db8aeeff2131ee404242b65b43ec3cf8190f7cfad",
+    "public/assets/villa.glb": "162592ef5353bf8cf2d2c04b3060a2221ea323791d0d76e3d1c3dc3ef860bcc9",
+    "public/assets/site.json": "36a8aeda38ba8cdcd28ebdd53b4d322de8aab944099b4b3eaec29c87c054a461",
+    "public/assets/overview.png": "fbf3e9d6479c13ccbbfe358ddd5cc0f5e5a4efc59aefda33e6bb9677dfd92fb8",
+    "public/assets/top-view.png": "38146c6667ac4f9c6101f559351daa23e7f03bb1d3e3a8d28cd5a053df5acab3"
+  }
+}
