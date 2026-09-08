@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Villa CCTV Viewer</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main id="loginPanel" class="login-shell" hidden>
+      <div class="login-content">
+        <span class="eyebrow">Villa</span>
+        <h1>별장 CCTV</h1>
+        <form id="loginForm">
+          <label for="phone">휴대폰 번호</label>
+          <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" maxlength="16" required />
+          <label for="deviceLabel">기기 이름</label>
+          <input id="deviceLabel" name="deviceLabel" autocomplete="off" placeholder="내 아이폰" maxlength="60" required />
+          <label class="check-label"><input id="rememberDevice" type="checkbox" checked /> 로그인 유지</label>
+          <button type="submit" class="primary">기기 승인 요청</button>
+        </form>
+        <section id="pendingPanel" hidden aria-live="polite">
+          <h2>기기 승인 대기</h2>
+          <p>확인 코드</p>
+          <strong id="approvalCode" class="approval-code"></strong>
+          <p id="pendingMessage">관리자의 승인을 기다리고 있습니다.</p>
+          <button id="newRequest" type="button">다시 요청</button>
+        </section>
+        <p id="loginError" class="form-error" role="alert"></p>
+      </div>
+    </main>
+    <main id="viewerPanel" class="app-shell" hidden>
+      <aside class="sidebar">
+        <div class="brand-block">
+          <span class="eyebrow">Villa Network</span>
+          <h1>CCTV 확인</h1>
+          <p>등록된 가족 카메라</p>
+        </div>
+
+        <div class="toolbar">
+          <label for="qualitySelect">스트림</label>
+          <select id="qualitySelect">
+            <option value="auto" selected>자동 최고화질</option>
+            <option value="main">Main 1080p</option>
+            <option value="sub">Sub 640x360</option>
+          </select>
+          <button id="reloadAll" type="button">전체 새로고침</button>
+        </div>
+
+        <div class="camera-list" id="cameraList"></div>
+
+        <section class="ptz-control" aria-label="선택 카메라 PTZ 제어">
+          <div class="ptz-head">
+            <span class="eyebrow">PTZ Control</span>
+            <strong id="activeCameraName">선택 없음</strong>
+          </div>
+          <div class="ptz-pad">
+            <button type="button" class="ptz-button" data-ptz="up" aria-label="위로 이동" title="위로 이동">↑</button>
+            <button type="button" class="ptz-button" data-ptz="left" aria-label="왼쪽 이동" title="왼쪽 이동">←</button>
+            <button type="button" class="ptz-button stop" data-ptz-stop aria-label="정지" title="정지">■</button>
+            <button type="button" class="ptz-button" data-ptz="right" aria-label="오른쪽 이동" title="오른쪽 이동">→</button>
+            <button type="button" class="ptz-button" data-ptz="down" aria-label="아래로 이동" title="아래로 이동">↓</button>
+          </div>
+          <div class="zoom-row">
+            <button type="button" data-ptz="zoomOut" aria-label="줌 아웃" title="줌 아웃">−</button>
+            <button type="button" data-ptz="zoomIn" aria-label="줌 인" title="줌 인">+</button>
+          </div>
+          <span class="ptz-status" id="ptzStatus">카메라를 선택하면 조작할 수 있습니다.</span>
+          <div class="capture-actions">
+            <button id="saveSnapshot" type="button">사진 저장</button>
+            <button id="recordToggle" type="button">녹화 시작</button>
+          </div>
+          <span id="captureStatus" role="status"></span>
+        </section>
+
+        <div class="network-note">
+          <strong>현재 확인</strong>
+          <span>영상 · 방향 제어 · 사진 · 녹화</span>
+        </div>
+      </aside>
+
+      <section class="workspace">
+        <header class="workspace-header">
+          <div>
+            <span class="eyebrow">Live Monitor</span>
+            <h2>전체 카메라</h2>
+          </div>
+          <div class="status-cluster">
+            <span id="clock">--:--:--</span>
+            <span id="currentUser"></span>
+          </div>
+        </header>
+        <nav class="account-actions" aria-label="내 계정과 저장">
+          <a href="/site/" class="site-link">배치도 · 3D</a>
+          <button id="openLibrary" type="button">보관함</button>
+          <button id="openDevices" type="button">기기 관리 <span id="pendingCount"></span></button>
+          <button id="logout" type="button">로그아웃</button>
+        </nav>
+        <div class="grid" id="cameraGrid"></div>
+      </section>
+    </main>
+    <dialog id="libraryDialog">
+      <header class="dialog-head"><h2>보관함</h2><button type="button" data-close="libraryDialog">닫기</button></header>
+      <p id="libraryStatus" role="status"></p>
+      <div id="mediaList" class="saved-list"></div>
+    </dialog>
+    <dialog id="devicesDialog">
+      <header class="dialog-head"><h2>기기 관리</h2><button type="button" data-close="devicesDialog">닫기</button></header>
+      <p id="devicesStatus" role="status"></p>
+      <section id="requestsSection" hidden><h3>승인 요청</h3><div id="requestList" class="saved-list"></div></section>
+      <section><h3>로그인된 기기</h3><div id="deviceList" class="saved-list"></div></section>
+    </dialog>
+    <script src="/access-ui.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>
