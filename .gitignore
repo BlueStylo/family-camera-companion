@@ -1,0 +1,16 @@
+node_modules/
+output/
+.playwright-cli/
+.DS_Store
+.env
+.env.*
+!.env.example
+*.local.json
+*.sqlite*
+*.db
+*.log
+*.blend1
+*.blend2
+__pycache__/
+public/app.bundle.js
+public/app.bundle.js.map

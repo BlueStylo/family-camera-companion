@@ -1,0 +1,26 @@
+name: Improvement or bug
+description: Record a scoped improvement with synthetic evidence.
+body:
+  - type: markdown
+    attributes:
+      value: "Do not attach real camera footage, QR codes, addresses, family data or reference photos."
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and evidence
+      description: Separate observed behavior from assumptions.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and non-goals
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance checks
+      description: What would demonstrate completion without exposing private data?
+    validations:
+      required: true
