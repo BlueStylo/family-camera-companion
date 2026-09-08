@@ -4,6 +4,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { SITE, corners, byId, footprint, localOutline, planPoint, labelPoint } from './site-data.js';
 import { planSvg } from './plan.js';
 import { offsetPath, pointAtZ, postsAlongPaths } from './site-geometry.js';
+import { inspectPng } from '../scripts/png-metadata.mjs';
 test('valid distinct regions and explicit estimate metadata',()=>{
   assert.equal(new Set(SITE.objects.map(o=>o.id)).size,SITE.objects.length);
   for(const o of SITE.objects){assert.ok(corners(o).every(Number.isFinite));assert.ok(o.w>0&&o.d>0&&o.h>0);assert.match(o.evidence,/추정/);}
@@ -170,4 +171,8 @@ test('Blender GLB has embedded assets, expected layers and no adjacent plot',()=
   for(const o of SITE.objects)assert.ok(gltf.nodes.some(n=>n.extras?.siteId===o.id),o.id);
   assert.ok(!gltf.nodes.some(n=>n.extras?.siteId==='vegetable-side'));
   assert.ok(gltf.images.every(i=>i.bufferView!==undefined));
+  for(const image of gltf.images) {
+    const view=gltf.bufferViews[image.bufferView],start=28+length+(view.byteOffset||0);
+    assert.deepEqual(inspectPng(data.subarray(start,start+view.byteLength),{allowTextureResolution:true}),[]);
+  }
 });

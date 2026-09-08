@@ -13,6 +13,7 @@ test('PNG metadata inspector rejects file paths, compressed text and EXIF', () =
     const pixelChunk=chunk('IDAT','unchanged compressed pixel bytes');
     const image=Buffer.concat([signature,chunk(type,text),pixelChunk,chunk('IEND')]);
     assert.equal(inspectPng(image).length,1);
+    assert.equal(inspectPng(image,{allowTextureResolution:true}).length,1);
     const clean=stripPngMetadata(image);
     assert.deepEqual(inspectPng(clean),[]);
     assert.ok(clean.includes(pixelChunk));

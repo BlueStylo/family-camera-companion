@@ -50,6 +50,13 @@ else for(const [name,pattern] of rules) if(pattern.test(blend.toString('utf8')))
 const data=await readFile('public/assets/villa.glb');
 const gltf=JSON.parse(data.toString('utf8',20,20+data.readUInt32LE(12)));
 if (gltf.images?.length!==2 || gltf.images.some(i=>i.uri||i.bufferView===undefined) || gltf.buffers.some(b=>b.uri)) errors.push('GLB must embed only the two reviewed texture images');
+const binaryStart = 28+data.readUInt32LE(12);
+for(const image of gltf.images||[]) {
+  const view=gltf.bufferViews[image.bufferView];
+  if(!view || image.mimeType!=='image/png') { errors.push('Unreviewed GLB image encoding');continue; }
+  const start=binaryStart+(view.byteOffset||0);
+  for(const issue of inspectPng(data.subarray(start,start+view.byteLength),{allowTextureResolution:true})) errors.push('GLB texture: '+issue);
+}
 const metadata=JSON.stringify(gltf);
 for(const [name,pattern] of rules) if(pattern.test(metadata)) errors.push('GLB: '+name);
 const spec=JSON.parse(await readFile('public/assets/site.json','utf8'));

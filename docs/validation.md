@@ -11,7 +11,7 @@ camera system.
 | Node tests | 33 passed, zero failed or skipped; geometry, auth, synthetic FFmpeg, PTZ, HTTP boundaries and PNG metadata regressions |
 | Blender reopen/verify | Connected planar roof, facade alignment, stair/rail opening, gate, L-border and boundary checks passed |
 | Packed images | Exactly 2 procedural textures; no photo-reference empties or collection |
-| GLB | Embedded assets, expected layers and site IDs, no adjacent plot |
+| GLB | Embedded assets, expected layers and site IDs, no adjacent plot; texture PNG metadata permits only the reviewed fixed resolution block |
 | Desktop browser | 1440 × 1000; model/plan, orbit, PTZ movement/stop, zoom and camera switch checked |
 | Mobile browser | 390 × 844; model/plan and PTZ checked; document width matches viewport |
 | Canvas pixels | Main scene and virtual camera contain varied pixels, not blank frames |
